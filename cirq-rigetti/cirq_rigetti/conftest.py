@@ -178,8 +178,8 @@ class MockQPUImplementer:
                 readout_data=qam._mock_results,  # type: ignore
             )
 
-        qam.run = Mock(  # type: ignore
-            qam.run,  # type: ignore
+        quantum_computer.qam.run = Mock(  # type: ignore
+            quantum_computer.qam.run,  # type: ignore
             side_effect=run,
         )
         return quantum_computer
