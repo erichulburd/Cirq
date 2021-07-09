@@ -8,7 +8,7 @@ from cirq_rigetti import RigettiQCSSampler
 
 
 @pytest.fixture
-def circuit_with_separate_readout_keys() -> Tuple[cirq.Circuit, cirq.Sweepable]:
+def circuit_with_separate_readout_keys() -> Tuple[cirq.Circuit, cirq.Linspace]:
     circuit = cirq.Circuit()
     qubits = cirq.LineQubit.range(2)
     circuit.append(cirq.H(qubits[0]))
@@ -22,7 +22,7 @@ def circuit_with_separate_readout_keys() -> Tuple[cirq.Circuit, cirq.Sweepable]:
 
 
 def test_circuit_with_separate_readout_keys_through_sampler(
-    circuit_with_separate_readout_keys: Tuple[cirq.Circuit, cirq.Sweepable]
+    circuit_with_separate_readout_keys: Tuple[cirq.Circuit, cirq.Linspace]
 ) -> None:
     """
     test that RigettiQCSSampler can properly readout from separate memory regions.
@@ -37,7 +37,7 @@ def test_circuit_with_separate_readout_keys_through_sampler(
     repetitions = 10
     circuit, sweepable = circuit_with_separate_readout_keys
     results = sampler.run_sweep(program=circuit, params=sweepable, repetitions=repetitions)
-    assert len(sweepable) == len(results)
+    assert len(list(sweepable)) == len(results)
 
     for i, result in enumerate(results):
         assert isinstance(result, cirq.study.Result)

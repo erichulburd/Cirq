@@ -1,4 +1,4 @@
-from typing import Tuple, Optional, List, Union, Generic, TypeVar
+from typing import Tuple, Optional, List, Union, Generic, TypeVar, Dict
 from unittest.mock import create_autospec, Mock
 import pytest
 from pyquil import Program  # type: ignore
@@ -26,12 +26,16 @@ T = TypeVar("T")
 
 
 class MockQAM(QAM, Generic[T]):
+    _run_count: int
+    _mock_results: Dict[str, np.ndarray]
+
     def __init__(
         self,
         *args,
         **kwargs,
     ) -> None:
-        self._mock_results = {}
+        self._run_count = 0
+        self._mock_results: Dict[str, np.ndarray] = {}
 
     def execute(self, executable: QuantumExecutable) -> T:
         pass
@@ -108,7 +112,7 @@ def bell_circuit(bell_circuit_with_qids: Tuple[cirq.Circuit, List[cirq.LineQubit
 
 
 @pytest.fixture
-def parametric_circuit_with_params() -> Tuple[cirq.Circuit, cirq.Sweepable]:
+def parametric_circuit_with_params() -> Tuple[cirq.Circuit, cirq.Linspace]:
     q = cirq.GridQubit(1, 1)
     circuit = cirq.Circuit(cirq.X(q) ** sympy.Symbol('t'),
                            cirq.measure(q, key='m'))
@@ -142,7 +146,7 @@ class MockQPUImplementer:
         def quil_to_native_quil(program: Program, *, protoquil: Optional[bool] = None) -> Program:
             return program
 
-        quantum_computer.compiler.quil_to_native_quil = create_autospec(
+        quantum_computer.compiler.quil_to_native_quil = create_autospec(  # type: ignore
             quantum_computer.compiler.quil_to_native_quil,
             side_effect=quil_to_native_quil,
         )
@@ -151,26 +155,27 @@ class MockQPUImplementer:
             assert 2 == nq_program.num_shots
             return nq_program
 
-        quantum_computer.compiler.native_quil_to_executable = create_autospec(
+        quantum_computer.compiler.native_quil_to_executable = create_autospec(  # type: ignore
             quantum_computer.compiler.native_quil_to_executable,
             side_effect=native_quil_to_executable,
         )
 
         def run(program: Union[Program, EncryptedProgram]) -> QAMExecutionResult:
             if not hasattr(quantum_computer.qam, '_run_count'):
-                quantum_computer.qam._run_count = 0
+                quantum_computer.qam._run_count = 0  # type: ignore
             else:
-                quantum_computer.qam._run_count += 1
+                quantum_computer.qam._run_count += 1  # type: ignore
 
-            quantum_computer.qam._mock_results = quantum_computer.qam._mock_results or {}
-            quantum_computer.qam._mock_results["m0"] = results[quantum_computer.qam._run_count]
+            qam = quantum_computer.qam
+            qam._mock_results = qam._mock_results or {}  # type: ignore
+            qam._mock_results["m0"] = results[qam._run_count]  # type: ignore
             return QAMExecutionResult(
                 executable=program,
-                readout_data=quantum_computer.qam._mock_results,
+                readout_data=qam._mock_results,  # type: ignore
             )
 
-        quantum_computer.qam.run = Mock(
-            quantum_computer.qam.run,
+        qam.run = Mock(  # type: ignore
+            qam.run,  # type: ignore
             side_effect=run,
         )
         return quantum_computer

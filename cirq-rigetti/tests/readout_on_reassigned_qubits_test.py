@@ -9,7 +9,7 @@ from cirq_rigetti import circuit_transformers
 
 
 @pytest.fixture
-def circuit_data() -> Tuple[cirq.Circuit, List[cirq.LineQubit], cirq.Sweepable]:
+def circuit_data() -> Tuple[cirq.Circuit, List[cirq.LineQubit], cirq.Linspace]:
     circuit = cirq.Circuit()
     qubits = cirq.LineQubit.range(2)
     circuit.append(cirq.H(qubits[0]))
@@ -22,7 +22,7 @@ def circuit_data() -> Tuple[cirq.Circuit, List[cirq.LineQubit], cirq.Sweepable]:
 
 
 def test_readout_on_reassigned_qubits(
-    circuit_data: Tuple[cirq.Circuit, List[cirq.LineQubit], cirq.Sweepable]
+    circuit_data: Tuple[cirq.Circuit, List[cirq.LineQubit], cirq.Linspace]
 ) -> None:
     """
     test that RigettiQCSSampler can properly readout qubits after quilc has reassigned those

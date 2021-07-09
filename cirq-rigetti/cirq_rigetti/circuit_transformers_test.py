@@ -6,7 +6,7 @@ from cirq_rigetti import circuit_transformers as transformers
 
 
 def test_transform_cirq_circuit_to_pyquil_program(
-    parametric_circuit_with_params: Tuple[cirq.Circuit, cirq.Sweepable],
+    parametric_circuit_with_params: Tuple[cirq.Circuit, cirq.Linspace],
 ) -> None:
     """
     test that a user can transform a ``cirq.Circuit`` to a ``pyquil.Program`` functionally.

@@ -60,13 +60,13 @@ def _execute_and_read_result(
 
     for region_name, values in memory_map.items():
         executable.write_memory(region_name=region_name, value=values)
-    result = quantum_computer.qam.run(executable)
+    qam_execution_result = quantum_computer.qam.run(executable)
 
     measurements = {}
     # For every key, value in QuilOutput#measurement_id_map, use the value to read
     # Rigetti QCS results and assign to measurements by key.
     for cirq_memory_key, pyquil_region in measurement_id_map.items():
-        readout = result.readout_data.get(pyquil_region)
+        readout = qam_execution_result.readout_data.get(pyquil_region)
         if readout is None:
             raise ValueError(
                 f'readout data does not have values for region "{pyquil_region}"'
