@@ -22,7 +22,7 @@ exec(open('cirq_rigetti/_version.py').read())
 
 name = 'cirq-rigetti'
 
-description = 'A Cirq package to simulate and connect to Pasqal quantum computers'
+description = 'A Cirq package to simulate and connect to Rigetti quantum computers and Quil QVM'
 
 # README file as long_description.
 long_description = io.open('README.rst', encoding='utf-8').read()
