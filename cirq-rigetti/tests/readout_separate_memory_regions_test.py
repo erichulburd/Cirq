@@ -36,11 +36,7 @@ def test_circuit_with_separate_readout_keys_through_sampler(
 
     repetitions = 10
     circuit, sweepable = circuit_with_separate_readout_keys
-    results = sampler.run_sweep(
-        program=circuit,
-        params=sweepable,
-        repetitions=repetitions
-    )
+    results = sampler.run_sweep(program=circuit, params=sweepable, repetitions=repetitions)
     assert len(sweepable) == len(results)
 
     for i, result in enumerate(results):
