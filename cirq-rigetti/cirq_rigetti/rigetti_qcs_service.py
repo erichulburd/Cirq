@@ -31,14 +31,16 @@ from cirq_rigetti import circuit_transformers as transformers
 from cirq_rigetti import circuit_sweep_executors as executors
 
 
+_default_executor = executors.with_quilc_compilation_and_cirq_parameter_resolution
+
+
 class RigettiQCSService:
     "A class to perform common cirq tasks through QCS's API."
 
     def __init__(
         self,
         quantum_computer: QuantumComputer,
-        executor: executors.CircuitSweepExecutor =
-            executors.with_quilc_compilation_and_cirq_parameter_resolution,
+        executor: executors.CircuitSweepExecutor = _default_executor,
         transformer: transformers.CircuitTransformer = transformers.default,
     ):
         """

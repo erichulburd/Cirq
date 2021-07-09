@@ -261,6 +261,10 @@ def circuit_from_quil(quil: str) -> Circuit:
         # Convert pyQuil MEASURE operations to Cirq MeasurementGate objects.
         elif isinstance(inst, PyQuilMeasurement):
             line_qubit = LineQubit(inst.qubit.index)
+            if inst.classical_reg is None:
+                raise UnsupportedQuilInstruction(
+                    f"Quil measurement {inst} without classical register not currently supported in Cirq."
+                )
             quil_memory_reference = inst.classical_reg.out()
             circuit += MeasurementGate(1, key=quil_memory_reference)(line_qubit)
 

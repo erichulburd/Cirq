@@ -21,6 +21,9 @@ from cirq_rigetti import circuit_transformers as transformers
 from cirq_rigetti import circuit_sweep_executors as executors
 
 
+_default_executor = executors.with_quilc_compilation_and_cirq_parameter_resolution
+
+
 class RigettiQCSSampler(cirq.Sampler):
     """Construct a sampler for running on Rigetti QCS QuantumComputer. This class supports
     running circuits on QCS quantum hardware as well as pyQuil's quantum virtual machine (QVM).
@@ -37,8 +40,7 @@ class RigettiQCSSampler(cirq.Sampler):
     def __init__(
         self,
         quantum_computer: QuantumComputer,
-        executor: executors.CircuitSweepExecutor =
-            executors.with_quilc_compilation_and_cirq_parameter_resolution,
+        executor: executors.CircuitSweepExecutor = _default_executor,
         transformer: transformers.CircuitTransformer = transformers.default,
     ):
         self._quantum_computer = quantum_computer

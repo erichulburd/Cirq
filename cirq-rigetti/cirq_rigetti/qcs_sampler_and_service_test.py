@@ -11,6 +11,9 @@ from cirq_rigetti import circuit_transformers as transformers
 from cirq_rigetti import circuit_sweep_executors as executors
 
 
+_default_executor = executors.with_quilc_compilation_and_cirq_parameter_resolution
+
+
 class _ResultBuilder(Protocol):
     def __call__(
         self,
@@ -18,8 +21,7 @@ class _ResultBuilder(Protocol):
         circuit: cirq.Circuit,
         sweepable: cirq.Sweepable,
         *,
-        executor: executors.CircuitSweepExecutor =
-            executors.with_quilc_compilation_and_cirq_parameter_resolution,
+        executor: executors.CircuitSweepExecutor = _default_executor,
         transformer: transformers.CircuitTransformer = transformers.default,
     ) -> Tuple[
         List[cirq.Result],
@@ -35,8 +37,7 @@ def _build_service_results(
     circuit: cirq.Circuit,
     sweepable: cirq.Sweepable,
     *,
-    executor: executors.CircuitSweepExecutor =
-        executors.with_quilc_compilation_and_cirq_parameter_resolution,
+    executor: executors.CircuitSweepExecutor = _default_executor,
     transformer: transformers.CircuitTransformer = transformers.default,
 ) -> Tuple[
     List[cirq.Result],
@@ -75,8 +76,7 @@ def _build_sampler_results(
     circuit: cirq.Circuit,
     sweepable: cirq.Sweepable,
     *,
-    executor: executors.CircuitSweepExecutor =
-        executors.with_quilc_compilation_and_cirq_parameter_resolution,
+    executor: executors.CircuitSweepExecutor = _default_executor,
     transformer: transformers.CircuitTransformer = transformers.default,
 ) -> Tuple[
     List[cirq.Result],
