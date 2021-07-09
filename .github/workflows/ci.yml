@@ -149,6 +149,20 @@ jobs:
       matrix:
         python-version: [ '3.6', '3.7', '3.8', '3.9' ]
     runs-on: ubuntu-20.04
+    services:
+      quilc:
+        image: rigetti/quilc
+        ports:
+          - 5555:5555
+        options: >-
+          --entrypoint './quilc -S'
+      quil_qvm:
+        image: rigetti/qvm
+        command: -S
+        ports:
+          - 5000:5000
+        options: >-
+          --entrypoint './qvm -S'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v1
@@ -162,7 +176,7 @@ jobs:
         run: |
           pip install -r dev_tools/requirements/dev.env.txt
       - name: Pytest check
-        run: check/pytest --ignore=cirq-core/cirq/contrib --actually-quiet
+        run: check/pytest --ignore=cirq-core/cirq/contrib --actually-quiet -m=rigetti-integration
   build_docs:
     name: Build docs
     runs-on: ubuntu-20.04
