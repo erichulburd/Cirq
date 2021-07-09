@@ -13,8 +13,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 ##############################################################################
-"""
-A collection of `CircuitSweepExecutor` s that the client may pass to `RigettiQCSService` or
+"""A collection of `CircuitSweepExecutor` s that the client may pass to `RigettiQCSService` or
 `RigettiQCSSampler` as `executor`.
 """
 
@@ -52,6 +51,9 @@ def _execute_and_read_result(
 
     Returns:
         A `cirq.Result` with measurements read from the `quantum_computer`.
+
+    Raises:
+        ValueError: measurement_id_map references an undefined pyQuil readout region.
     """
     if memory_map is None:
         memory_map = {}
@@ -134,7 +136,8 @@ class CircuitSweepExecutor(Protocol):
         repetitions: int,
         transformer: transformers.CircuitTransformer,
     ) -> List[cirq.Result]:
-        """
+        """Transforms `cirq.Circuit` to `pyquil.Program` and executes it for given arguments.
+
         Args:
             quantum_computer: The `pyquil.api.QuantumComputer` against which to execute the circuit.
             circuit: The `cirq.Circuit` to transform into a `pyquil.Program` and executed on the
@@ -200,8 +203,7 @@ def with_quilc_compilation_and_cirq_parameter_resolution(
     repetitions: int,
     transformer: transformers.CircuitTransformer = transformers.default,
 ) -> List[cirq.Result]:
-    """
-    This `CircuitSweepExecutor` will first resolve each resolver in `resolvers` using
+    """This `CircuitSweepExecutor` will first resolve each resolver in `resolvers` using
     `cirq.protocols.resolve_parameters` and then compile that resolved `cirq.Circuit` into
     native Quil using quilc. This executor may be useful if `with_quilc_parametric_compilation`
     fails to properly resolve a parameterized `cirq.Circuit`.
@@ -244,8 +246,7 @@ def with_quilc_parametric_compilation(
     repetitions: int,
     transformer: transformers.CircuitTransformer = transformers.default,
 ) -> List[cirq.Result]:
-    """
-    This `CircuitSweepExecutor` will compile the `circuit` using quilc as a
+    """This `CircuitSweepExecutor` will compile the `circuit` using quilc as a
     parameterized `pyquil.api.QuantumExecutable` and on each iteration of
     `resolvers`, rather than resolving the `circuit` with `cirq.protocols.resolve_parameters`,
     it will attempt to cast the resolver to a dict and pass it as a memory map to

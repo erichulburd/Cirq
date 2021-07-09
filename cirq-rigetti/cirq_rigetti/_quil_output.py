@@ -39,7 +39,8 @@ class RigettiQCSQuilOutput(cirq.QuilOutput):
         decompose_operation: Optional[Callable[[cirq.Operation], List[cirq.Operation]]] = None,
         qubit_id_map: Optional[Dict[cirq.Qid, str]] = None,
     ):
-        """
+        """Initializes an instance of `RigettiQCSQuilOutput`.
+
         Args:
             operations: A list or tuple of `cirq.OP_TREE` arguments.
             qubits: The qubits used in the operations.
@@ -64,6 +65,9 @@ class RigettiQCSQuilOutput(cirq.QuilOutput):
         Args:
             output_func: A function that accepts a string of QUIL. This will likely
                 write the QUIL to a file.
+
+        Returns:
+            None.
         """
         if self._decompose_operation is None:
             return super()._write_quil(output_func)

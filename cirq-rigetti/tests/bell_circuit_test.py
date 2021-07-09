@@ -6,8 +6,7 @@ from cirq_rigetti import RigettiQCSService, RigettiQCSSampler
 
 
 def test_bell_circuit_through_service(bell_circuit: cirq.Circuit) -> None:
-    """
-    test that RigettiQCSService can run a basic bell circuit on the QVM and return an accurate
+    """test that RigettiQCSService can run a basic bell circuit on the QVM and return an accurate
     ``cirq.study.Result``.
     """
     qc = get_qc('9q-square', as_qvm=True)
@@ -35,8 +34,7 @@ def test_bell_circuit_through_service(bell_circuit: cirq.Circuit) -> None:
 
 
 def test_bell_circuit_through_sampler(bell_circuit: cirq.Circuit) -> None:
-    """
-    test that RigettiQCSSampler can run a basic bell circuit on the QVM and return an accurate
+    """test that RigettiQCSSampler can run a basic bell circuit on the QVM and return an accurate
     ``cirq.study.Result``.
     """
     qc = get_qc('9q-square', as_qvm=True)

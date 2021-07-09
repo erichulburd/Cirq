@@ -13,8 +13,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 ##############################################################################
-"""
-A collection of `CircuitTransformer` s that the client may pass to `RigettiQCSService` or
+"""A collection of `CircuitTransformer` s that the client may pass to `RigettiQCSService` or
 `RigettiQCSSampler` as `transformer`.
 """
 from typing import Dict, cast, Optional, Tuple, List, Callable
@@ -68,7 +67,8 @@ class CircuitTransformer(Protocol):
         *,
         circuit: cirq.Circuit,
     ) -> Tuple[Program, Dict[str, str]]:
-        """
+        """Transforms a `cirq.Circuit` to a pyquil.Program`.
+
         Args:
             circuit: The `cirq.Circuit` the transformer will transform into a `pyquil.Program`.
 
@@ -124,7 +124,8 @@ def default(*, circuit: cirq.Circuit) -> Tuple[Program, Dict[str, str]]:
     Args:
         circuit: The `cirq.Circuit` the transformer will transform into a `pyquil.Program`.
 
-    Returns: The `pyquil.Program` and a map of the `cirq.Circuit`'s memory region keys to
+    Returns:
+        The `pyquil.Program` and a map of the `cirq.Circuit`'s memory region keys to
         the `pyquil.Program`'s memory regions.
     """
     return _transform_cirq_circuit_to_pyquil_program(circuit=circuit)

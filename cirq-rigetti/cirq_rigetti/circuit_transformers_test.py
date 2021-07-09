@@ -8,8 +8,8 @@ from cirq_rigetti import circuit_transformers as transformers
 def test_transform_cirq_circuit_to_pyquil_program(
     parametric_circuit_with_params: Tuple[cirq.Circuit, cirq.Linspace],
 ) -> None:
-    """
-    test that a user can transform a ``cirq.Circuit`` to a ``pyquil.Program`` functionally.
+    """test that a user can transform a `cirq.Circuit` to a `pyquil.Program`
+    functionally.
     """
 
     parametric_circuit, param_resolvers = parametric_circuit_with_params
@@ -30,9 +30,8 @@ def test_transform_cirq_circuit_to_pyquil_program(
 def test_transform_cirq_circuit_to_pyquil_program_with_qubit_id_map(
     bell_circuit_with_qids: Tuple[cirq.Circuit, List[cirq.Qid]],
 ) -> None:
-    """
-    test that a user can transform a ``cirq.Circuit`` to a ``pyquil.Program`` functionally
-    with explicit physical qubit address mapping.
+    """test that a user can transform a `cirq.Circuit` to a `pyquil.Program`
+    functionally with explicit physical qubit address mapping.
     """
 
     bell_circuit, qubits = bell_circuit_with_qids

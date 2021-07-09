@@ -35,7 +35,7 @@ _default_executor = executors.with_quilc_compilation_and_cirq_parameter_resoluti
 
 
 class RigettiQCSService:
-    "A class to perform common cirq tasks through QCS's API."
+    """A class to perform common cirq tasks through QCS's API."""
 
     def __init__(
         self,
@@ -43,7 +43,8 @@ class RigettiQCSService:
         executor: executors.CircuitSweepExecutor = _default_executor,
         transformer: transformers.CircuitTransformer = transformers.default,
     ):
-        """
+        """Initializes a `RigettiQCSService`.
+
         Args:
             quantum_computer: A pyquil.api.QuantumComputer against which to run the `cirq.Circuit`s.
             executor: A callable that first uses the below transformer on cirq.Circuit s and

@@ -116,8 +116,7 @@ def test_parametric_circuit(
     parametric_circuit_with_params: Tuple[cirq.Circuit, cirq.Sweepable],
     result_builder: _ResultBuilder,
 ) -> None:
-    """
-    test that RigettiQCSService and RigettiQCSSampler can run a parametric
+    """test that RigettiQCSService and RigettiQCSSampler can run a parametric
     circuit with a specified set of parameters and return expected cirq.Results.
     """
 
@@ -182,8 +181,7 @@ def test_bell_circuit(
     bell_circuit: cirq.Circuit,
     result_builder: _ResultBuilder,
 ) -> None:
-    """
-    test that RigettiQCSService and RigettiQCSSampler can run a basic Bell circuit
+    """test that RigettiQCSService and RigettiQCSSampler can run a basic Bell circuit
     with two read out bits and return expected cirq.Results.
     """
 
@@ -244,8 +242,7 @@ def test_explicit_qubit_id_map(
     bell_circuit_with_qids: Tuple[cirq.Circuit, List[cirq.LineQubit]],
     result_builder: _ResultBuilder,
 ) -> None:
-    """
-    test that RigettiQCSService and RigettiQCSSampler accept explicit ``qubit_id_map``
+    """test that RigettiQCSService and RigettiQCSSampler accept explicit ``qubit_id_map``
     to map ``cirq.Qid`` s to physical qubits.
     """
     bell_circuit, qubits = bell_circuit_with_qids
@@ -316,8 +313,7 @@ def test_run_without_quilc_compilation(
     bell_circuit: cirq.Circuit,
     result_builder: _ResultBuilder,
 ) -> None:
-    """
-    test that RigettiQCSService and RigettiQCSSampler allow users to execute
+    """test that RigettiQCSService and RigettiQCSSampler allow users to execute
     without using quilc to compile to native Quil.
     """
     param_resolvers = [cirq.ParamResolver({})]

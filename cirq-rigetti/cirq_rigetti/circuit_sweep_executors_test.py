@@ -8,8 +8,7 @@ def test_with_quilc_compilation_and_cirq_parameter_resolution(
     mock_qpu_implementer: Any,
     parametric_circuit_with_params: Tuple[cirq.Circuit, cirq.Sweepable],
 ) -> None:
-    """
-    test that execution with quilc compilation and cirq parameter resolution calls
+    """test that execution with quilc compilation and cirq parameter resolution calls
     ``quil_to_native_quil`` and ``native_quil_to_executable`` for each parameter
     resolver.
     """
@@ -48,8 +47,7 @@ def test_with_quilc_parametric_compilation(
     mock_qpu_implementer: Any,
     parametric_circuit_with_params: Tuple[cirq.Circuit, cirq.Sweepable],
 ) -> None:
-    """
-    test that execution with quilc parametric compilation only compiles only once and
+    """test that execution with quilc parametric compilation only compiles only once and
     parameters are properly resolved before execution.
     """
 
@@ -87,8 +85,7 @@ def test_without_quilc_compilation(
     mock_qpu_implementer: Any,
     parametric_circuit_with_params: Tuple[cirq.Circuit, cirq.Sweepable],
 ) -> None:
-    """
-    test execution without quilc compilation treats the transformed cirq
+    """test execution without quilc compilation treats the transformed cirq
     Circuit as native quil and does not pass it through quilc.
     """
 

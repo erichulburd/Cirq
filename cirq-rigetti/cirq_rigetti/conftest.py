@@ -124,8 +124,10 @@ def parametric_circuit_with_params() -> Tuple[cirq.Circuit, cirq.Linspace]:
 
 class MockQPUImplementer:
     def __init__(self, quantum_computer: QuantumComputer):
-        """
-        :param quantum_computer: QuantumComputer to mock.
+        """Initializes a MockQPUImplementer.
+
+        Args:
+            quantum_computer: QuantumComputer to mock.
         """
         self.quantum_computer = quantum_computer
 
@@ -133,13 +135,15 @@ class MockQPUImplementer:
         self,
         results: List[np.ndarray],
     ) -> QuantumComputer:
-        """
-        Mocks compilation methods on the ``quantum_computer.compiler``, passively passing the
-        ``Program`` through. Sequentially adds results to the
-        ``quantum_computer.qam._memory_region`` (this will not work for asynchronous runs).
+        """Mocks compilation methods on the `quantum_computer.compiler`, passively passing the
+        `Program` through. Sequentially adds results to the
+        `quantum_computer.qam._memory_region` (this will not work for asynchronous runs).
 
-        :param results: np.ndarray to sequentially write to ``QAM._memory_region``.
-        :return: Mocked QuantumComputer
+        Args:
+            results: np.ndarray to sequentially write to `QAM._memory_region`.
+
+        Returns:
+            A mocked QuantumComputer.
         """
         quantum_computer = self.quantum_computer
 
