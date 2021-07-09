@@ -13,7 +13,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 ##############################################################################
-from cirq_rigetti.rigetti_qcs_sampler import RigettiQCSSampler  # noqa
-from cirq_rigetti.rigetti_qcs_service import RigettiQCSService  # noqa
+from cirq_rigetti.sampler import RigettiQCSSampler  # noqa
+from cirq_rigetti.service import RigettiQCSService  # noqa
 from cirq_rigetti import circuit_sweep_executors  # noqa
 from cirq_rigetti import circuit_transformers  # noqa

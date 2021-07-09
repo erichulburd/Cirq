@@ -22,6 +22,31 @@ import sympy
 import numpy as np
 
 
+def pytest_addoption(parser):
+    parser.addoption(
+        "--rigetti-integration",
+        action="store_true",
+        default=False,
+        help="run tests that require Quil compiler and QVM"
+    )
+
+
+def pytest_configure(config):
+    config.addinivalue_line(
+        "markers",
+        "rigetti-integration: run tests that require Quil compiler and QVM",
+    )
+
+
+def pytest_collection_modifyitems(config, items):
+    if config.getoption("--rigetti-integration"):
+        return
+    skip_rigetti_integration = pytest.mark.skip(reason="need --rigetti-integration option to run")
+    for item in items:
+        if "rigetti_integration" in item.keywords:
+            item.add_marker(skip_rigetti_integration)
+
+
 T = TypeVar("T")
 
 

@@ -26,7 +26,7 @@ from qcs_api_client.models import (
     GetQuiltCalibrationsResponse,
 )
 from pyquil.api import QuantumComputer
-from cirq_rigetti.rigetti_qcs_sampler import RigettiQCSSampler
+from cirq_rigetti.sampler import RigettiQCSSampler
 from cirq_rigetti import circuit_transformers as transformers
 from cirq_rigetti import circuit_sweep_executors as executors
 

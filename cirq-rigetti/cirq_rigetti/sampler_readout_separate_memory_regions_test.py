@@ -21,6 +21,7 @@ def circuit_with_separate_readout_keys() -> Tuple[cirq.Circuit, cirq.Linspace]:
     return circuit, param_sweep
 
 
+@pytest.mark.rigetti_integration
 def test_circuit_with_separate_readout_keys_through_sampler(
     circuit_with_separate_readout_keys: Tuple[cirq.Circuit, cirq.Linspace]
 ) -> None:

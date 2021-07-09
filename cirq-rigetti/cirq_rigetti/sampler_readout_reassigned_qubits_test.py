@@ -21,6 +21,7 @@ def circuit_data() -> Tuple[cirq.Circuit, List[cirq.LineQubit], cirq.Linspace]:
     return circuit, qubits, param_sweep
 
 
+@pytest.mark.rigetti_integration
 def test_readout_on_reassigned_qubits(
     circuit_data: Tuple[cirq.Circuit, List[cirq.LineQubit], cirq.Linspace]
 ) -> None:
