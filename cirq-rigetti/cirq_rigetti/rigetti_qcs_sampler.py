@@ -46,7 +46,10 @@ class RigettiQCSSampler(cirq.Sampler):
         self.transformer = transformer
 
     def run_sweep(
-        self, program: cirq.Circuit, params: cirq.Sweepable, repetitions: int = 1,
+        self,
+        program: cirq.Circuit,
+        params: cirq.Sweepable,
+        repetitions: int = 1,
     ) -> List[cirq.Result]:
         """This will evaluate results on the circuit for every set of parameters in `params`.
 

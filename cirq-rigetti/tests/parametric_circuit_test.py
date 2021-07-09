@@ -58,11 +58,7 @@ def test_parametric_circuit_through_sampler(
     qvm.random_seed = 0
 
     repetitions = 10
-    results = sampler.run_sweep(
-        program=circuit,
-        params=sweepable,
-        repetitions=repetitions
-    )
+    results = sampler.run_sweep(program=circuit, params=sweepable, repetitions=repetitions)
     assert len(sweepable) == len(results)
 
     expected_results = [
@@ -104,11 +100,7 @@ def test_parametric_circuit_through_sampler_with_parametric_compilation(
     qvm.random_seed = 10
 
     repetitions = 10
-    results = sampler.run_sweep(
-        program=circuit,
-        params=sweepable,
-        repetitions=repetitions
-    )
+    results = sampler.run_sweep(program=circuit, params=sweepable, repetitions=repetitions)
     assert len(sweepable) == len(results)
 
     expected_results = [

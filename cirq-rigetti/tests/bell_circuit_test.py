@@ -20,10 +20,7 @@ def test_bell_circuit_through_service(bell_circuit: cirq.Circuit) -> None:
     qvm.random_seed = 0
 
     repetitions = 10
-    result = service.run(
-        circuit=bell_circuit,
-        repetitions=repetitions
-    )
+    result = service.run(circuit=bell_circuit, repetitions=repetitions)
     assert isinstance(result, cirq.study.Result)
     assert 0 == len(result.params.param_dict)
 
@@ -51,9 +48,7 @@ def test_bell_circuit_through_sampler(bell_circuit: cirq.Circuit) -> None:
 
     repetitions = 10
     results = sampler.run_sweep(
-        program=bell_circuit,
-        params=[cirq.ParamResolver({})],
-        repetitions=repetitions
+        program=bell_circuit, params=[cirq.ParamResolver({})], repetitions=repetitions
     )
     assert 1 == len(results)
 

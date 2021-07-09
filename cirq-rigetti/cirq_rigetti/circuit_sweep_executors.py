@@ -33,9 +33,7 @@ def _execute_and_read_result(
     executable: QuantumExecutable,
     measurement_id_map: Dict[str, str],
     resolver: cirq.ParamResolverOrSimilarType,
-    memory_map: Optional[
-        Dict[str, Union[int, float, Sequence[int], Sequence[float]]]
-    ] = None,
+    memory_map: Optional[Dict[str, Union[int, float, Sequence[int], Sequence[float]]]] = None,
 ) -> cirq.Result:
     """Execute the `pyquil.api.QuantumExecutable` and parse the measurements into
     a `cirq.Result`.
@@ -68,9 +66,7 @@ def _execute_and_read_result(
     for cirq_memory_key, pyquil_region in measurement_id_map.items():
         readout = qam_execution_result.readout_data.get(pyquil_region)
         if readout is None:
-            raise ValueError(
-                f'readout data does not have values for region "{pyquil_region}"'
-            )
+            raise ValueError(f'readout data does not have values for region "{pyquil_region}"')
         measurements[cirq_memory_key] = readout
     logger.debug(f"measurement_id_map {measurement_id_map}")
     logger.debug(f"measurements {measurements}")
@@ -187,9 +183,7 @@ def without_quilc_compilation(
         resolved_circuit = cirq.protocols.resolve_parameters(circuit, resolver)
         program, measurement_id_map = transformer(circuit=resolved_circuit)
         program = program.wrap_in_numshots_loop(repetitions)
-        executable = quantum_computer.compile(
-            program, optimize=False, to_native_gates=False
-        )
+        executable = quantum_computer.compile(program, optimize=False, to_native_gates=False)
         result = _execute_and_read_result(
             quantum_computer, executable, measurement_id_map, resolver
         )
@@ -280,9 +274,7 @@ def with_quilc_parametric_compilation(
     cirq_results = []
     for resolver in resolvers:
         memory_map = _get_param_dict(resolver)
-        logger.debug(
-            f"running pre-compiled parametric circuit with parameters {memory_map}"
-        )
+        logger.debug(f"running pre-compiled parametric circuit with parameters {memory_map}")
         result = _execute_and_read_result(
             quantum_computer,
             executable.copy(),

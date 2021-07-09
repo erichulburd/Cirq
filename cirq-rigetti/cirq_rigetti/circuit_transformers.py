@@ -35,9 +35,7 @@ def _transform_cirq_circuit_to_pyquil_program(
     *,
     circuit: cirq.Circuit,
     qubits: Optional[Tuple[cirq.Qid, ...]] = None,
-    decompose_operation: Optional[
-        Callable[[cirq.Operation], List[cirq.Operation]]
-    ] = None,
+    decompose_operation: Optional[Callable[[cirq.Operation], List[cirq.Operation]]] = None,
     qubit_id_map: Optional[Dict[cirq.Qid, str]] = None,
     post_transformation_hooks: Optional[List[_PostTransformationHook]] = None,
 ) -> Tuple[Program, Dict[str, str]]:
@@ -65,7 +63,11 @@ def _transform_cirq_circuit_to_pyquil_program(
 class CircuitTransformer(Protocol):
     """A type definition for `cirq.Circuit` to `pyquil.Program` transformer functions."""
 
-    def __call__(self, *, circuit: cirq.Circuit,) -> Tuple[Program, Dict[str, str]]:
+    def __call__(
+        self,
+        *,
+        circuit: cirq.Circuit,
+    ) -> Tuple[Program, Dict[str, str]]:
         """
         Args:
             circuit: The `cirq.Circuit` the transformer will transform into a `pyquil.Program`.
@@ -79,9 +81,7 @@ class CircuitTransformer(Protocol):
 def build(
     *,
     qubits: Optional[Tuple[cirq.Qid, ...]] = None,
-    decompose_operation: Optional[
-        Callable[[cirq.Operation], List[cirq.Operation]]
-    ] = None,
+    decompose_operation: Optional[Callable[[cirq.Operation], List[cirq.Operation]]] = None,
     qubit_id_map: Optional[Dict[cirq.Qid, str]] = None,
     post_transformation_hooks: Optional[List[_PostTransformationHook]] = None,
 ) -> CircuitTransformer:

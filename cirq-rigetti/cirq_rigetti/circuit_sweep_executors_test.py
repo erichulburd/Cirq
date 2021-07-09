@@ -32,19 +32,15 @@ def test_with_quilc_compilation_and_cirq_parameter_resolution(
         repetitions=repetitions,
     )
     assert len(param_resolvers) == len(results)
-    assert (
-        len(param_resolvers) == quantum_computer.compiler.quil_to_native_quil.call_count
-    )
-    assert (
-        len(param_resolvers)
-        == quantum_computer.compiler.native_quil_to_executable.call_count
-    )
+    assert len(param_resolvers) == quantum_computer.compiler.quil_to_native_quil.call_count
+    assert len(param_resolvers) == quantum_computer.compiler.native_quil_to_executable.call_count
 
     for i, result in enumerate(results):
         result = results[i]
         assert param_resolvers[i] == result.params
         assert np.allclose(
-            result.measurements["m"], expected_results[i],
+            result.measurements["m"],
+            expected_results[i],
         ), "should return an ordered list of results with correct set of measurements"
 
 
@@ -82,7 +78,8 @@ def test_with_quilc_parametric_compilation(
         result = results[i]
         assert param_resolvers[i] == result.params
         assert np.allclose(
-            result.measurements["m"], expected_results[i],
+            result.measurements["m"],
+            expected_results[i],
         ), "should return an ordered list of results with correct set of measurements"
 
 
@@ -115,14 +112,12 @@ def test_without_quilc_compilation(
     )
     assert len(param_resolvers) == len(results)
     assert 0 == quantum_computer.compiler.quil_to_native_quil.call_count
-    assert (
-        len(param_resolvers)
-        == quantum_computer.compiler.native_quil_to_executable.call_count
-    )
+    assert len(param_resolvers) == quantum_computer.compiler.native_quil_to_executable.call_count
 
     for i, result in enumerate(results):
         result = results[i]
         assert param_resolvers[i] == result.params
         assert np.allclose(
-            result.measurements["m"], expected_results[i],
+            result.measurements["m"],
+            expected_results[i],
         ), "should return an ordered list of results with correct set of measurements"

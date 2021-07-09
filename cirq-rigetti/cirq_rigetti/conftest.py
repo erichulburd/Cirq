@@ -4,17 +4,17 @@ import pytest
 from pyquil import Program  # type: ignore
 from pyquil.quantum_processor import AbstractQuantumProcessor, NxQuantumProcessor  # type: ignore
 from pyquil.api import (
-    QAM, QuantumComputer,
+    QAM,
+    QuantumComputer,
     QuantumExecutable,
     QAMExecutionResult,
-    EncryptedProgram
-) # type: ignore
+    EncryptedProgram,
+)  # type: ignore
 from pyquil.api._abstract_compiler import AbstractCompiler  # type: ignore
-from qcs_api_client.client._configuration.settings import (
-    QCSClientConfigurationSettings
-)
+from qcs_api_client.client._configuration.settings import QCSClientConfigurationSettings
 from qcs_api_client.client._configuration import (
-    QCSClientConfiguration, QCSClientConfigurationSecrets
+    QCSClientConfiguration,
+    QCSClientConfigurationSecrets,
 )
 import networkx as nx
 import cirq
@@ -114,8 +114,7 @@ def bell_circuit(bell_circuit_with_qids: Tuple[cirq.Circuit, List[cirq.LineQubit
 @pytest.fixture
 def parametric_circuit_with_params() -> Tuple[cirq.Circuit, cirq.Linspace]:
     q = cirq.GridQubit(1, 1)
-    circuit = cirq.Circuit(cirq.X(q) ** sympy.Symbol('t'),
-                           cirq.measure(q, key='m'))
+    circuit = cirq.Circuit(cirq.X(q) ** sympy.Symbol('t'), cirq.measure(q, key='m'))
 
     # Sweep exponent from zero (off) to one (on) and back to two (off)
     param_sweep = cirq.Linspace('t', start=0, stop=2, length=5)
@@ -131,8 +130,8 @@ class MockQPUImplementer:
         self.quantum_computer = quantum_computer
 
     def implement_passive_quantum_computer_with_results(
-            self,
-            results: List[np.ndarray],
+        self,
+        results: List[np.ndarray],
     ) -> QuantumComputer:
         """
         Mocks compilation methods on the ``quantum_computer.compiler``, passively passing the
@@ -143,6 +142,7 @@ class MockQPUImplementer:
         :return: Mocked QuantumComputer
         """
         quantum_computer = self.quantum_computer
+
         def quil_to_native_quil(program: Program, *, protoquil: Optional[bool] = None) -> Program:
             return program
 

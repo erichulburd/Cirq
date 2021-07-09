@@ -57,11 +57,15 @@ def _build_service_results(
         expected_results
     )
     service = RigettiQCSService(
-        quantum_computer=quantum_computer, executor=executor, transformer=transformer,
+        quantum_computer=quantum_computer,
+        executor=executor,
+        transformer=transformer,
     )
 
     result = service.run(
-        circuit=circuit, param_resolver=param_resolver, repetitions=repetitions,
+        circuit=circuit,
+        param_resolver=param_resolver,
+        repetitions=repetitions,
     )
     return [result], quantum_computer, expected_results, [param_resolver]
 
@@ -91,20 +95,22 @@ def _build_sampler_results(
         expected_results
     )
     service = RigettiQCSService(
-        quantum_computer=quantum_computer, executor=executor, transformer=transformer,
+        quantum_computer=quantum_computer,
+        executor=executor,
+        transformer=transformer,
     )
 
     sampler = service.sampler()
 
     results = sampler.run_sweep(
-        program=circuit, params=param_resolvers, repetitions=repetitions,
+        program=circuit,
+        params=param_resolvers,
+        repetitions=repetitions,
     )
     return results, quantum_computer, expected_results, param_resolvers
 
 
-@pytest.mark.parametrize(
-    "result_builder", [_build_service_results, _build_sampler_results]
-)
+@pytest.mark.parametrize("result_builder", [_build_service_results, _build_sampler_results])
 def test_parametric_circuit(
     mock_qpu_implementer: Any,
     parametric_circuit_with_params: Tuple[cirq.Circuit, cirq.Sweepable],
@@ -129,7 +135,8 @@ def test_parametric_circuit(
         result = results[i]
         assert param_resolver == result.params
         assert np.allclose(
-            result.measurements["m"], expected_results[i],
+            result.measurements["m"],
+            expected_results[i],
         ), "should return an ordered list of results with correct set of measurements"
 
     def test_executable(i: int, program: Program) -> None:
@@ -143,9 +150,7 @@ def test_parametric_circuit(
             assert (
                 RX(np.pi * t, 0) in program.instructions
             ), f"executable should contain an RX(pi*{t}) 0 instruction at {i}"
-        assert (
-            DECLARE("m0") in program.instructions
-        ), "executable should declare a read out bit"
+        assert DECLARE("m0") in program.instructions, "executable should declare a read out bit"
         assert (
             MEASURE(0, ("m0", 0)) in program.instructions
         ), "executable should measure the read out bit"
@@ -158,8 +163,8 @@ def test_parametric_circuit(
         test_executable(i, call_args[0][0])
 
     assert (
-        param_sweeps ==
-            quantum_computer.compiler.native_quil_to_executable.call_count  # type: ignore
+        param_sweeps
+        == quantum_computer.compiler.native_quil_to_executable.call_count  # type: ignore
     )
     for i, call_args in enumerate(
         quantum_computer.compiler.native_quil_to_executable.call_args_list  # type: ignore
@@ -171,9 +176,7 @@ def test_parametric_circuit(
         test_executable(i, call_args[0][0])
 
 
-@pytest.mark.parametrize(
-    "result_builder", [_build_service_results, _build_sampler_results]
-)
+@pytest.mark.parametrize("result_builder", [_build_service_results, _build_sampler_results])
 def test_bell_circuit(
     mock_qpu_implementer: Any,
     bell_circuit: cirq.Circuit,
@@ -197,7 +200,8 @@ def test_bell_circuit(
         result = results[i]
         assert param_resolver == result.params
         assert np.allclose(
-            result.measurements["m"], expected_results[i],
+            result.measurements["m"],
+            expected_results[i],
         ), "should return an ordered list of results with correct set of measurements"
 
     def test_executable(program: Program) -> None:
@@ -221,8 +225,8 @@ def test_bell_circuit(
         test_executable(call_args[0][0])
 
     assert (
-        param_sweeps ==
-            quantum_computer.compiler.native_quil_to_executable.call_count  # type: ignore
+        param_sweeps
+        == quantum_computer.compiler.native_quil_to_executable.call_count  # type: ignore
     )
     for i, call_args in enumerate(
         quantum_computer.compiler.native_quil_to_executable.call_args_list  # type: ignore
@@ -234,9 +238,7 @@ def test_bell_circuit(
         test_executable(call_args[0][0])
 
 
-@pytest.mark.parametrize(
-    "result_builder", [_build_service_results, _build_sampler_results]
-)
+@pytest.mark.parametrize("result_builder", [_build_service_results, _build_sampler_results])
 def test_explicit_qubit_id_map(
     mock_qpu_implementer: Any,
     bell_circuit_with_qids: Tuple[cirq.Circuit, List[cirq.LineQubit]],
@@ -270,7 +272,8 @@ def test_explicit_qubit_id_map(
         result = results[i]
         assert param_resolver == result.params
         assert np.allclose(
-            result.measurements["m"], expected_results[i],
+            result.measurements["m"],
+            expected_results[i],
         ), "should return an ordered list of results with correct set of measurements"
 
     def test_executable(program: Program) -> None:
@@ -294,8 +297,8 @@ def test_explicit_qubit_id_map(
         test_executable(call_args[0][0])
 
     assert (
-        param_sweeps ==
-            quantum_computer.compiler.native_quil_to_executable.call_count  # type: ignore
+        param_sweeps
+        == quantum_computer.compiler.native_quil_to_executable.call_count  # type: ignore
     )
     for i, call_args in enumerate(
         quantum_computer.compiler.native_quil_to_executable.call_args_list  # type: ignore
@@ -307,9 +310,7 @@ def test_explicit_qubit_id_map(
         test_executable(call_args[0][0])
 
 
-@pytest.mark.parametrize(
-    "result_builder", [_build_service_results, _build_sampler_results]
-)
+@pytest.mark.parametrize("result_builder", [_build_service_results, _build_sampler_results])
 def test_run_without_quilc_compilation(
     mock_qpu_implementer: Any,
     bell_circuit: cirq.Circuit,
@@ -335,7 +336,8 @@ def test_run_without_quilc_compilation(
         result = results[i]
         assert param_resolver == result.params
         assert np.allclose(
-            result.measurements["m"], expected_results[i],
+            result.measurements["m"],
+            expected_results[i],
         ), "should return an ordered list of results with correct set of measurements"
 
     def test_executable(program: Program) -> None:
@@ -355,8 +357,8 @@ def test_run_without_quilc_compilation(
 
     param_sweeps = len(param_resolvers)
     assert (
-        param_sweeps ==
-            quantum_computer.compiler.native_quil_to_executable.call_count  # type: ignore
+        param_sweeps
+        == quantum_computer.compiler.native_quil_to_executable.call_count  # type: ignore
     )
     for i, call_args in enumerate(
         quantum_computer.compiler.native_quil_to_executable.call_args_list  # type: ignore

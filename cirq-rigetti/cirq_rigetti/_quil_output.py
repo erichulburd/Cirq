@@ -36,9 +36,7 @@ class RigettiQCSQuilOutput(cirq.QuilOutput):
         *,
         operations: cirq.OP_TREE,
         qubits: Tuple[cirq.Qid, ...],
-        decompose_operation: Optional[
-            Callable[[cirq.Operation], List[cirq.Operation]]
-        ] = None,
+        decompose_operation: Optional[Callable[[cirq.Operation], List[cirq.Operation]]] = None,
         qubit_id_map: Optional[Dict[cirq.Qid, str]] = None,
     ):
         """
@@ -79,9 +77,7 @@ class RigettiQCSQuilOutput(cirq.QuilOutput):
                 if key in measurements_declared:
                     continue
                 measurements_declared.add(key)
-                output_func(
-                    f"DECLARE {self.measurement_id_map[key]} BIT[{len(m.qubits)}]\n"
-                )
+                output_func(f"DECLARE {self.measurement_id_map[key]} BIT[{len(m.qubits)}]\n")
             output_func("\n")
 
         for main_op in self.operations:

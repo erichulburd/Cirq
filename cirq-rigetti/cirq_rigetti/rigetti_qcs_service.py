@@ -94,7 +94,9 @@ class RigettiQCSService:
         )
 
     def get_quilt_calibrations(
-        self, quantum_processor_id: str, client: Client,
+        self,
+        quantum_processor_id: str,
+        client: Client,
     ) -> GetQuiltCalibrationsResponse:
         """Retrieve the calibration data used for client-side Quil-T generation.
 
@@ -103,13 +105,13 @@ class RigettiQCSService:
         """
         return cast(
             GetQuiltCalibrationsResponse,
-            get_quilt_calibrations(
-                client=client, quantum_processor_id=quantum_processor_id
-            ).parsed,
+            get_quilt_calibrations(client=client, quantum_processor_id=quantum_processor_id).parsed,
         )
 
     def get_instruction_set_architecture(
-        self, quantum_processor_id: str, client: Client,
+        self,
+        quantum_processor_id: str,
+        client: Client,
     ) -> InstructionSetArchitecture:
         """Retrieve the Instruction Set Architecture of a QuantumProcessor by ID. This
         includes site specific operations and native gate capabilities.

@@ -45,11 +45,7 @@ def test_readout_on_reassigned_qubits(
 
     repetitions = 10
 
-    results = sampler.run_sweep(
-        program=circuit,
-        params=sweepable,
-        repetitions=repetitions
-    )
+    results = sampler.run_sweep(program=circuit, params=sweepable, repetitions=repetitions)
     assert len(sweepable) == len(results)
 
     for i, result in enumerate(results):
