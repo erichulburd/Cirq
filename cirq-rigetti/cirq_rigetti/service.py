@@ -14,16 +14,18 @@
 #    limitations under the License.
 ##############################################################################
 from typing import cast
-from httpx import Client
 import cirq
 
+from qcs_api_client.client import build_sync_client
 from qcs_api_client.operations.sync import (
     get_instruction_set_architecture,
     get_quilt_calibrations,
+    list_quantum_processors,
 )
 from qcs_api_client.models import (
     InstructionSetArchitecture,
     GetQuiltCalibrationsResponse,
+    ListQuantumProcessorsResponse,
 )
 from pyquil.api import QuantumComputer
 from cirq_rigetti.sampler import RigettiQCSSampler
@@ -96,25 +98,38 @@ class RigettiQCSService:
             transformer=self._transformer,
         )
 
+    @staticmethod
+    def list_quantum_processors() -> ListQuantumProcessorsResponse:
+        """Retrieve a list of available Rigetti quantum processors.
+
+        Returns:
+            A qcs_api_client.models.ListQuantumProcessorsResponse containing the identifiers
+            of the available quantum processors..
+        """
+        with build_sync_client() as client:
+            return cast(
+                ListQuantumProcessorsResponse,
+                list_quantum_processors(client=client).parsed,
+            )
+
+    @staticmethod
     def get_quilt_calibrations(
-        self,
         quantum_processor_id: str,
-        client: Client,
     ) -> GetQuiltCalibrationsResponse:
         """Retrieve the calibration data used for client-side Quil-T generation.
 
         Returns:
             A qcs_api_client.models.GetQuiltCalibrationsResponse containing the device calibrations.
         """
-        return cast(
-            GetQuiltCalibrationsResponse,
-            get_quilt_calibrations(client=client, quantum_processor_id=quantum_processor_id).parsed,
-        )
+        with build_sync_client() as client:
+            return cast(
+                GetQuiltCalibrationsResponse,
+                get_quilt_calibrations(client=client, quantum_processor_id=quantum_processor_id).parsed,
+            )
 
+    @staticmethod
     def get_instruction_set_architecture(
-        self,
         quantum_processor_id: str,
-        client: Client,
     ) -> InstructionSetArchitecture:
         """Retrieve the Instruction Set Architecture of a QuantumProcessor by ID. This
         includes site specific operations and native gate capabilities.
@@ -122,9 +137,10 @@ class RigettiQCSService:
         Returns:
             A qcs_api_client.models.InstructionSetArchitecture containing the device specification.
         """
-        return cast(
-            InstructionSetArchitecture,
-            get_instruction_set_architecture(
-                client=client, quantum_processor_id=quantum_processor_id
-            ).parsed,
-        )
+        with build_sync_client() as client:
+            return cast(
+                InstructionSetArchitecture,
+                get_instruction_set_architecture(
+                    client=client, quantum_processor_id=quantum_processor_id
+                ).parsed,
+            )
