@@ -15,4 +15,3 @@ rfc3986~=1.5.0
 six~=1.16.0
 sniffio~=1.2.0
 toml~=0.10.2
-typing-extensions~=3.10.0.0
