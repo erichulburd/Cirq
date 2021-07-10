@@ -34,7 +34,7 @@ def pytest_addoption(parser):
 def pytest_configure(config):
     config.addinivalue_line(
         "markers",
-        "rigetti-integration: run tests that require Quil compiler and QVM",
+        "rigetti_integration: run tests that require Quil compiler and QVM",
     )
 
 
