@@ -190,14 +190,11 @@ class MockQPUImplementer:
         )
 
         def run(program: Union[Program, EncryptedProgram]) -> QAMExecutionResult:
-            if not hasattr(quantum_computer.qam, '_run_count'):
-                quantum_computer.qam._run_count = 0  # type: ignore
-            else:
-                quantum_computer.qam._run_count += 1  # type: ignore
-
             qam = quantum_computer.qam
             qam._mock_results = qam._mock_results or {}  # type: ignore
             qam._mock_results["m0"] = results[qam._run_count]  # type: ignore
+
+            quantum_computer.qam._run_count += 1  # type: ignore
             return QAMExecutionResult(
                 executable=program,
                 readout_data=qam._mock_results,  # type: ignore
