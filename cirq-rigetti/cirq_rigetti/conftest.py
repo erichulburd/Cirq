@@ -27,7 +27,7 @@ def pytest_addoption(parser):
         "--rigetti-integration",
         action="store_true",
         default=False,
-        help="run tests that require Quil compiler and QVM"
+        help="run tests that require Quil compiler and QVM",
     )
 
 
