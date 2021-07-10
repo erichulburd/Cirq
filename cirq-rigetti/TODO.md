@@ -4,3 +4,4 @@
 * [ ] Review and polish markdown docs
 * [ ] Run QAOA Cirq notebook on Aspen-9
 * [ ] Run VQE Cirq notebook on Aspen-9
+* [ ] Work on device validation
