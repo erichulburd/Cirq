@@ -106,7 +106,7 @@ class RigettiQCSService:
             A qcs_api_client.models.ListQuantumProcessorsResponse containing the identifiers
             of the available quantum processors..
         """
-        with build_sync_client() as client:
+        with build_sync_client() as client:  # type: ignore
             return cast(
                 ListQuantumProcessorsResponse,
                 list_quantum_processors(client=client).parsed,
@@ -119,12 +119,15 @@ class RigettiQCSService:
         """Retrieve the calibration data used for client-side Quil-T generation.
 
         Returns:
-            A qcs_api_client.models.GetQuiltCalibrationsResponse containing the device calibrations.
+            A qcs_api_client.models.GetQuiltCalibrationsResponse containing the
+            device calibrations.
         """
-        with build_sync_client() as client:
+        with build_sync_client() as client:  # type: ignore
             return cast(
                 GetQuiltCalibrationsResponse,
-                get_quilt_calibrations(client=client, quantum_processor_id=quantum_processor_id).parsed,
+                get_quilt_calibrations(
+                    client=client, quantum_processor_id=quantum_processor_id
+                ).parsed,
             )
 
     @staticmethod
@@ -137,7 +140,7 @@ class RigettiQCSService:
         Returns:
             A qcs_api_client.models.InstructionSetArchitecture containing the device specification.
         """
-        with build_sync_client() as client:
+        with build_sync_client() as client:  # type: ignore
             return cast(
                 InstructionSetArchitecture,
                 get_instruction_set_architecture(

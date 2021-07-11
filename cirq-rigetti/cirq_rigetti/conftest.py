@@ -36,6 +36,13 @@ def pytest_collection_modifyitems(config, items):
             item.add_marker(skip_rigetti_integration)
 
 
+def pytest_configure(config):
+    config.addinivalue_line(
+        "markers",
+        "rigetti_integration: tests that connect to Quil compiler or QVM.",
+    )
+
+
 T = TypeVar("T")
 
 
