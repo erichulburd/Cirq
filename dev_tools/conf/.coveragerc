@@ -6,3 +6,11 @@ include = ./*
 
 omit = 
     benchmarks/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+
+omit =
+    cirq-rigetti/cirq_rigetti/json_test_data/*
+    cirq-rigetti/cirq_rigetti/json_resolver_cache.py

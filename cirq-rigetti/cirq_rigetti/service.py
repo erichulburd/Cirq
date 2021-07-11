@@ -99,7 +99,7 @@ class RigettiQCSService:
         )
 
     @staticmethod
-    def list_quantum_processors() -> ListQuantumProcessorsResponse:
+    def list_quantum_processors() -> ListQuantumProcessorsResponse:  # pragma: no cover
         """Retrieve a list of available Rigetti quantum processors.
 
         Returns:
@@ -115,7 +115,7 @@ class RigettiQCSService:
     @staticmethod
     def get_quilt_calibrations(
         quantum_processor_id: str,
-    ) -> GetQuiltCalibrationsResponse:
+    ) -> GetQuiltCalibrationsResponse:  # pragma: no cover
         """Retrieve the calibration data used for client-side Quil-T generation.
 
         Returns:
@@ -133,7 +133,7 @@ class RigettiQCSService:
     @staticmethod
     def get_instruction_set_architecture(
         quantum_processor_id: str,
-    ) -> InstructionSetArchitecture:
+    ) -> InstructionSetArchitecture:  # pragma: no cover
         """Retrieve the Instruction Set Architecture of a QuantumProcessor by ID. This
         includes site specific operations and native gate capabilities.
 

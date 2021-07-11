@@ -18,6 +18,6 @@ from typing import Dict
 from cirq.protocols.json_serialization import ObjectFactory
 
 
-@functools.lru_cache(maxsize=1)
-def _class_resolver_dictionary() -> Dict[str, ObjectFactory]:
+@functools.lru_cache(maxsize=1)  # pragma: no cover
+def _class_resolver_dictionary() -> Dict[str, ObjectFactory]:  # pragma: no cover
     return {}
